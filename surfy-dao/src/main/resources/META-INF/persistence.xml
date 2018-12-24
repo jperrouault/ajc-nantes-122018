@@ -8,9 +8,12 @@
 
 		<class>fr.formation.model.Personne</class>
 		<class>fr.formation.model.Fournisseur</class>
-		<class>fr.formation.model.Client</class>
 		<class>fr.formation.model.Produit</class>
 		<class>fr.formation.model.Evenement</class>
+		<class>fr.formation.model.Commande</class>
+		<class>fr.formation.model.Client</class>
+		<class>fr.formation.model.Commentaire</class>
+		<class>fr.formation.model.Achat</class>
 
 		<properties>
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/surfy?serverTimezone=UTC" />

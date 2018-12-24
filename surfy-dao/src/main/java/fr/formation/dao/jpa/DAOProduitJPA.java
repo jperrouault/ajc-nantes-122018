@@ -8,13 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import fr.formation.dao.IDAOProduit;
 import fr.formation.model.Produit;
 
-public class DAOProduitJPA implements IDAOProduit {
-	private EntityManager em;
-	
-	
-	public DAOProduitJPA(EntityManagerFactory emf) {
-		this.em = emf.createEntityManager();
-	}
+public class DAOProduitJPA extends DAOJPA implements IDAOProduit {
 	
 	
 	@Override

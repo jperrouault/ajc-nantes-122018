@@ -8,6 +8,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,6 +28,37 @@ import javax.validation.constraints.Size;
 	@AttributeOverride(name="telephone", column=@Column(name="CLI_TELEPHONE", length=20))
 })
 public class Client extends Personne {
+	
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
+	}
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
+
+	public List<Evenement> getParticipations() {
+		return participations;
+	}
+
+	public void setParticipations(List<Evenement> participations) {
+		this.participations = participations;
+	}
+
+	@OneToMany(mappedBy="client")
+	private List<Commande> commandes;
+	
+	@OneToMany(mappedBy="client")
+	private List<Commentaire> commentaires;
+	
 	@Column(name="CLI_PRENOM", length=100, nullable=false)
 	@NotEmpty
 	@NotNull

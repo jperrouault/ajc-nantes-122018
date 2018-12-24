@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
@@ -18,10 +19,46 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="evenement")
 public class Evenement {
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public List<Client> getClientsQuiViennentMeVoir() {
+		return clientsQuiViennentMeVoir;
+	}
+
+	public void setClientsQuiViennentMeVoir(List<Client> clientsQuiViennentMeVoir) {
+		this.clientsQuiViennentMeVoir = clientsQuiViennentMeVoir;
+	}
+
+	@OneToMany(mappedBy="evenement")
+	private List<Commentaire> commentaires;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="EVT_ID")
 	private int id;
+	
 	
 	@Column(name="EVT_NOM", nullable=false)
 	@NotNull
@@ -39,4 +76,6 @@ public class Evenement {
 			@JoinColumn(name="PART_CLIENT_ID", referencedColumnName="CLI_ID")
 	)
 	private List<Client> clientsQuiViennentMeVoir;
+	
+	
 }
