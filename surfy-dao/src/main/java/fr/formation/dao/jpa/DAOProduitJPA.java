@@ -61,4 +61,22 @@ public class DAOProduitJPA implements IDAOProduit {
 		myProduit.setId(id);
 		this.delete(myProduit);
 	}
+
+
+	@Override
+	public List<Produit> findByClientId(int id) {
+		return em
+				.createQuery("select p from Produit p left join p.achats a where a.commande.client.id = :id", Produit.class)
+				.setParameter("id", id)
+				.getResultList();
+	}
+
+
+	@Override
+	public List<Produit> findByFournisseurId(int id) {
+		return em
+				.createQuery("select p from Produit p where p.fournisseur.id = :id", Produit.class)
+				.setParameter("id", id)
+				.getResultList();
+	}
 }

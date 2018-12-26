@@ -37,4 +37,10 @@ public class DAOFournisseurSQL implements IDAOFournisseur {
 		
 	}
 
+	@Override
+	public Fournisseur findByIdWithProduits(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

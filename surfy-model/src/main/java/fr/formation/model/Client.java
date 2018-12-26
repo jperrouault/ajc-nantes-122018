@@ -2,12 +2,14 @@ package fr.formation.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,45 +17,43 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 //TABLE_PER_CLASS
 @Entity
-@Table(name="client")
-@AttributeOverrides({
-	@AttributeOverride(name="id", column=@Column(name="CLI_ID")),
-	@AttributeOverride(name="nom", column=@Column(name="CLI_NOM", nullable=false)),
-	@AttributeOverride(name="adresse", column=@Column(name="CLI_ADRESSE", nullable=false)),
-	@AttributeOverride(name="email", column=@Column(name="CLI_EMAIL", nullable=false)),
-	@AttributeOverride(name="telephone", column=@Column(name="CLI_TELEPHONE", length=20))
-})
+@Table(name = "client")
+@AttributeOverrides({ @AttributeOverride(name = "id", column = @Column(name = "CLI_ID")),
+		@AttributeOverride(name = "nom", column = @Column(name = "CLI_NOM", nullable = false)),
+		@AttributeOverride(name = "adresse", column = @Column(name = "CLI_ADRESSE", nullable = false)),
+		@AttributeOverride(name = "email", column = @Column(name = "CLI_EMAIL", nullable = false)),
+		@AttributeOverride(name = "telephone", column = @Column(name = "CLI_TELEPHONE", length = 20)) })
 public class Client extends Personne {
-	@Column(name="CLI_PRENOM", length=100, nullable=false)
+	@Column(name = "CLI_PRENOM", length = 100, nullable = false)
 	@NotEmpty
 	@NotNull
-	@Size(max=100)
+	@Size(max = 100)
 	private String prenom;
 
-	@Column(name="CLI_NIVEAU")
+	@Column(name = "CLI_NIVEAU")
 	private int niveau;
 
-	@Column(name="CLI_TAILLE")
+	@Column(name = "CLI_TAILLE")
 	private int taille;
 
-	@Column(name="CLI_POIDS")
+	@Column(name = "CLI_POIDS")
 	private int poids;
 
-	@Column(name="CLI_DATE_NAISSANCE")
+	@Column(name = "CLI_DATE_NAISSANCE")
 	@Temporal(TemporalType.DATE)
 	private Date dateNaissance;
 
-	@Column(name="CLI_PASSWORD", nullable=false, length=300)
+	@Column(name = "CLI_PASSWORD", nullable = false, length = 300)
 	@NotEmpty
 	private String password;
-	
-	
-	@ManyToMany(mappedBy="clientsQuiViennentMeVoir")
+
+	@OneToMany(mappedBy = "client")
+	private Set<Commande> commandes;
+
+	@ManyToMany(mappedBy = "clientsQuiViennentMeVoir")
 	private List<Evenement> participations;
-	
 
 	public String getPrenom() {
 		return prenom;
@@ -101,5 +101,21 @@ public class Client extends Personne {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Commande> getCommandes() {
+		return commandes;
+	}
+
+	public void setCommandes(Set<Commande> commandes) {
+		this.commandes = commandes;
+	}
+
+	public List<Evenement> getParticipations() {
+		return participations;
+	}
+
+	public void setParticipations(List<Evenement> participations) {
+		this.participations = participations;
 	}
 }

@@ -139,4 +139,18 @@ public class DAOProduitSQL extends DAOSQL implements IDAOProduit {
 	public void delete(Produit p) {
 		this.deleteById(p.getId());
 	}
+
+
+	@Override
+	public List<Produit> findByClientId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Produit> findByFournisseurId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
