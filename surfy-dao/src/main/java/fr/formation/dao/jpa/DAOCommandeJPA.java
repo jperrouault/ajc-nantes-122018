@@ -5,32 +5,32 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import fr.formation.dao.IDAOProduit;
-import fr.formation.model.Produit;
+import fr.formation.dao.IDAOCommande;
+import fr.formation.model.Commande;
 
-public class DAOProduitJPA implements IDAOProduit {
+public class DAOCommandeJPA implements IDAOCommande {
 	private EntityManager em;
 	
 	
-	public DAOProduitJPA(EntityManagerFactory emf) {
+	public DAOCommandeJPA(EntityManagerFactory emf) {
 		this.em = emf.createEntityManager();
 	}
 	
 	
 	@Override
-	public List<Produit> findAll() {
+	public List<Commande> findAll() {
 		return em
-				.createQuery("select p from Produit p", Produit.class)
+				.createQuery("select c from Commande c", Commande.class)
 				.getResultList();
 	}
 
 	@Override
-	public Produit findById(int id) {
-		return em.find(Produit.class, id);
+	public Commande findById(int id) {
+		return em.find(Commande.class, id);
 	}
 
 	@Override
-	public Produit save(Produit entity) {
+	public Commande save(Commande entity) {
 		//On démarre la transaction
 		em.getTransaction().begin();
 		
@@ -49,7 +49,7 @@ public class DAOProduitJPA implements IDAOProduit {
 	}
 
 	@Override
-	public void delete(Produit entity) {
+	public void delete(Commande entity) {
 		em.getTransaction().begin();
 		em.remove(em.merge(entity));
 		em.getTransaction().commit();
@@ -57,8 +57,8 @@ public class DAOProduitJPA implements IDAOProduit {
 
 	@Override
 	public void deleteById(int id) {
-		Produit myProduit = new Produit();
-		myProduit.setId(id);
-		this.delete(myProduit);
+		Commande myCommande = new Commande();
+		myCommande.setId(id);
+		this.delete(myCommande);
 	}
 }

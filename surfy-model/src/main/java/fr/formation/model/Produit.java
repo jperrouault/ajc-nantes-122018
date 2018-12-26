@@ -1,5 +1,6 @@
 package fr.formation.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Produit {
 	@Column(name="PRO_DESCRIPTION", columnDefinition="TEXT")
 	private String description;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST) //DES QU'ON PERSISTE UN PRODUIT, JPA PERSISTE AUSSI LE FOURNISSEUR
 	@JoinColumn(name="PRO_FOURNISSEUR_ID")
 	private Fournisseur fournisseur;
 	
