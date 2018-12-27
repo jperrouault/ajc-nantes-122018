@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 import fr.loupgarou.dao.IDAOUtilisateur;
 import fr.loupgarou.exception.AccountLockedException;
@@ -86,7 +87,7 @@ public class DAOUtilisateurJPA implements IDAOUtilisateur {
 			return myUtilisateur;
 		}
 		
-		catch (Exception ex) {
+		catch (NoResultException ex) {
 			throw new UsernameOrPasswordNotFoundException();
 		}
 	}
