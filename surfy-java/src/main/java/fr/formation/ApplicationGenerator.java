@@ -1,8 +1,5 @@
 package fr.formation;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.EntityManagerFactory;
@@ -12,10 +9,10 @@ import fr.formation.dao.IDAOCommande;
 import fr.formation.dao.IDAOProduit;
 import fr.formation.dao.jpa.DAOCommandeJPA;
 import fr.formation.dao.jpa.DAOProduitJPA;
-import fr.formation.model.Achat;
+
 import fr.formation.model.Client;
 import fr.formation.model.Commande;
-import fr.formation.model.Fournisseur;
+
 import fr.formation.model.Produit;
 
 public class ApplicationGenerator {
