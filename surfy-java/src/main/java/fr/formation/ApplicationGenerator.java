@@ -8,10 +8,10 @@ import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import fr.formation.dao.IDAOCommande;
 import fr.formation.dao.IDAOProduit;
-import fr.formation.dao.jpa.DAOCommandeJPA;
-import fr.formation.dao.jpa.DAOProduitJPA;
 import fr.formation.model.Achat;
 import fr.formation.model.Client;
 import fr.formation.model.Commande;
@@ -19,12 +19,14 @@ import fr.formation.model.Fournisseur;
 import fr.formation.model.Produit;
 
 public class ApplicationGenerator {
-	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SurfyPU");
-		IDAOProduit daoProduit = new DAOProduitJPA(emf);
-		IDAOCommande daoCommande = new DAOCommandeJPA(emf);
-		
-		
+	@Autowired
+	private IDAOProduit daoProduit;
+	
+	@Autowired
+	private IDAOCommande daoCommande;
+	
+	
+	public void run(String[] args) {
 		//AJOUTER UNE NOUVELLE COMMANDE (BESOIN D'UN CLIENT, ET DES ACHATS)
 		Commande c = new Commande();
 		Client cli = new Client();
@@ -61,7 +63,5 @@ public class ApplicationGenerator {
 //		p.setFournisseur(f);
 //		
 //		daoProduit.save(p);
-		
-		emf.close();
 	}
 }
