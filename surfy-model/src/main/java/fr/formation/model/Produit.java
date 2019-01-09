@@ -51,7 +51,7 @@ public class Produit {
 	@Column(name = "PRO_DESCRIPTION", columnDefinition = "TEXT")
 	private String description;
 
-	@ManyToOne(cascade = CascadeType.PERSIST) // DES QU'ON PERSISTE UN PRODUIT, JPA PERSISTE AUSSI LE FOURNISSEUR
+	@ManyToOne(cascade = CascadeType.MERGE) // DES QU'ON PERSISTE UN PRODUIT, JPA PERSISTE AUSSI LE FOURNISSEUR
 	@JoinColumn(name = "PRO_FOURNISSEUR_ID")
 	private Fournisseur fournisseur;
 
