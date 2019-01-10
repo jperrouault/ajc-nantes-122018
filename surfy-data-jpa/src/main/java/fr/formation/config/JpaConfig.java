@@ -35,7 +35,7 @@ public class JpaConfig {
 		BasicDataSource dataSource = new BasicDataSource();
 		
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl(sqlUrl);
+		dataSource.setUrl(env.getProperty("sql.url"));
 		dataSource.setUsername(env.getProperty("sql.username"));
 		dataSource.setPassword(env.getProperty("sql.password"));
 		dataSource.setMaxTotal(env.getProperty("sql.maxTotal", Integer.class));
