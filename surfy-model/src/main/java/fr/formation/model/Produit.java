@@ -2,7 +2,6 @@ package fr.formation.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class Produit {
 	private int type;
 
 	@Column(name = "PRO_MODELE", nullable = false)
-	@NotEmpty
+	@NotEmpty(message="Le nom du modèle doit être saisi")
 	@NotNull
 	private String modele;
 
@@ -39,7 +38,7 @@ public class Produit {
 	private int taille;
 
 	@Column(name = "PRO_PRIX")
-	@Positive
+	@Positive(message="Le prix doit être strictement positif")
 	private float prix;
 
 	@Column(name = "PRO_DISPOS")
@@ -51,7 +50,7 @@ public class Produit {
 	@Column(name = "PRO_DESCRIPTION", columnDefinition = "TEXT")
 	private String description;
 
-	@ManyToOne(cascade = CascadeType.MERGE) // DES QU'ON PERSISTE UN PRODUIT, JPA PERSISTE AUSSI LE FOURNISSEUR
+	@ManyToOne
 	@JoinColumn(name = "PRO_FOURNISSEUR_ID")
 	private Fournisseur fournisseur;
 
