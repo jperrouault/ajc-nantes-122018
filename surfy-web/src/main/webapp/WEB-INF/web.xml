@@ -13,7 +13,8 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-
+	
+	<!-- Servlet principale (contrôleurs web avec les vues HTML) -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -34,5 +35,30 @@
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<!-- Servlet API (Rest Contrôleurs, sans les vues) -->
+	<servlet>
+		<servlet-name>api</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>fr.formation.config.ApiConfig</param-value>
+		</init-param>
+
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>api</servlet-name>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 </web-app>

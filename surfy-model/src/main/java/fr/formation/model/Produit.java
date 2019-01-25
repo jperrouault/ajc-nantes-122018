@@ -15,12 +15,17 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.formation.projection.Views;
+
 @Entity
 @Table(name = "produit")
 public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRO_ID")
+	@JsonView(Views.Common.class)
 	private int id;
 
 	@Column(name = "PRO_CATEGORIE")
@@ -32,6 +37,7 @@ public class Produit {
 	@Column(name = "PRO_MODELE", nullable = false)
 	@NotEmpty(message="Le nom du modèle doit être saisi")
 	@NotNull
+	@JsonView(Views.Produit.class)
 	private String modele;
 
 	@Column(name = "PRO_TAILLE")
@@ -39,6 +45,7 @@ public class Produit {
 
 	@Column(name = "PRO_PRIX")
 	@Positive(message="Le prix doit être strictement positif")
+	@JsonView(Views.Produit.class)
 	private float prix;
 
 	@Column(name = "PRO_DISPOS")
@@ -52,9 +59,11 @@ public class Produit {
 
 	@ManyToOne
 	@JoinColumn(name = "PRO_FOURNISSEUR_ID")
+	@JsonView(Views.ProduitWithAchatsAndFournisseur.class)
 	private Fournisseur fournisseur;
 
 	@OneToMany(mappedBy = "produit")
+	@JsonView(Views.ProduitWithAchatsAndFournisseur.class)
 	private List<Achat> achats;
 
 	public int getId() {
