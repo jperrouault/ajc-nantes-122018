@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>SE CONNECTER</title>
+	</head>
+	
+	<body>
+		<h3>Se connecter</h3>
+		
+		<p th:if="${ param.error }">
+			Nom d'utilisateur ou mot de passe incorrect !
+		</p>
+		
+		<form method="POST" action="perform_login">
+			<input type="hidden" th:name="${ _csrf.parameterName }" th:value="${ _csrf.token }" />
+			
+			
+			<div>
+				<label>Nom d'utilisateur</label>
+				<input type="text" name="username" />
+			</div>
+			
+			<div>
+				<label>Mot de passe</label>
+				<input type="password" name="password" />
+			</div>
+			
+			<div>
+				<input type="submit" value="C'EST PARTI !!" />
+			</div>
+		</form>
+	</body>
+</html>

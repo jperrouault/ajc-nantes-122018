@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<title>LE SUPERBE TITRE ICI</title>
+	</head>
+	
+	<body>
+		<p>Allô le monde ?!</p>
+		<p>Bonjour [[${ utilisateur }]] !</p>
+
+		<p sec:authorize="hasRole('ROLE_USER')">
+			Bonjour utilisateur !
+		</p>
+
+		<p sec:authorize="hasRole('ROLE_ADMIN')">
+			Bonjour Admin !
+		</p>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>LE SUPERBE TITRE ICI</title>
+	</head>
+	
+	<body>
+		<div th:if="${ produit != null }">
+			<div th:errors="${produit.modele}"></div>
+			<div th:errors="${produit.prix}"></div>
+		</div>
+		
+		<form method="POST">
+			<input type="hidden" th:name="${ _csrf.parameterName }" th:value="${ _csrf.token }" />
+			
+			<div>
+				<label>Nom du produit</label>
+				<input type="text" name="modele" th:value="${ produit?.modele }" />
+			</div>
+			
+			<div>
+				<label>Prix du produit</label>
+				<input type="number" name="prix" th:value="${ produit?.prix }" step="0.1" />
+			</div>
+			
+			<div>
+				<label>Fournisseur</label>
+				<select name="fournisseur.id">
+					<option th:each="fournisseur : ${ fournisseurs }"
+							th:value="${ fournisseur.id }"
+							th:text="${ fournisseur.nom }"
+							th:selected="${ produit?.fournisseur?.id == fournisseur.id }"
+					/>
+				</select>
+			</div>
+			
+			<div>
+				<input type="submit" value="OK !" />
+			</div>
+		</form>
+	</body>
+</html>
