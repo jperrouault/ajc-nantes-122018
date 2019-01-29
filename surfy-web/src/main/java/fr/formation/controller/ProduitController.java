@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.formation.dao.IDAOFournisseur;
 import fr.formation.dao.IDAOProduit;
 import fr.formation.model.Produit;
+import fr.formation.security.annotation.IsAdmin;
 
 @Controller
 @RequestMapping("/produit")
+//@IsAdmin
 public class ProduitController {
 	@Autowired
 	private IDAOProduit daoProduit;
@@ -28,18 +30,21 @@ public class ProduitController {
 	
 	
 	@GetMapping
+//	@PreAuthorize("isAuthenticated()")
 	public String findAll(Model model) {
 		model.addAttribute("produits", daoProduit.findAll());
 		return "produits";
 	}
 	
 	@GetMapping("/ajouter")
+	@IsAdmin
 	public String ajouter(Model model) {
 		model.addAttribute("fournisseurs", daoFournisseur.findAll());
 		return "form-editer";
 	}
 	
 	@PostMapping("/ajouter")
+	@IsAdmin
 	public String ajouter(@Valid @ModelAttribute Produit produit, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("fournisseurs", daoFournisseur.findAll());
@@ -52,6 +57,7 @@ public class ProduitController {
 	
 	
 	@GetMapping("/supprimer")
+	@IsAdmin
 	public String supprimer(@RequestParam int id) {
 		daoProduit.deleteById(id);
 		return "redirect:./";
@@ -59,6 +65,7 @@ public class ProduitController {
 	
 	
 	@GetMapping("/editer")
+	@IsAdmin
 	public String editer(@RequestParam int id, Model model) {
 		model.addAttribute("fournisseurs", daoFournisseur.findAll());
 		model.addAttribute("produit", daoProduit.findById(id).get());
@@ -66,6 +73,7 @@ public class ProduitController {
 	}
 	
 	@PostMapping("/editer")
+	@IsAdmin
 	public String editer(@RequestParam int id, Model model, @Valid @ModelAttribute Produit produit, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("fournisseurs", daoFournisseur.findAll());

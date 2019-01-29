@@ -12,4 +12,10 @@ public class HomeController {
 		model.addAttribute("utilisateur", username);
 		return "home";
 	}
+	
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 }

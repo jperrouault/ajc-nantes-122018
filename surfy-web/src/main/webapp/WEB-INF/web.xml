@@ -12,8 +12,39 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
 	
+	
+	<!-- Configuration générale de Spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			fr.formation.config.JpaConfig
+			fr.formation.config.SecurityConfig
+		</param-value>
+	</context-param>
+
+
+	<!-- Filtre de sécurité -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
 	<!-- Servlet principale (contrôleurs web avec les vues HTML) -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -36,9 +67,9 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	
-	
+
+
+
 	<!-- Servlet API (Rest Contrôleurs, sans les vues) -->
 	<servlet>
 		<servlet-name>api</servlet-name>
