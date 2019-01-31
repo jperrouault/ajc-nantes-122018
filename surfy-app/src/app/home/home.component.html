@@ -1,0 +1,23 @@
+<p [style.color]="couleur">Le prénom est : {{ prenom }}</p>
+<p>Le résultat : {{ 5 + 5 }}</p>
+
+<input type="text" [(ngModel)]="prenom" />
+<button (click)="changePrenom()">CHANGER LE PRENOM</button>
+
+
+<select [(ngModel)]="couleur">
+    <option value="#000000">NOIR</option>
+    <option value="#00FF00">VERT</option>
+    <option value="#FF5588">ROSE</option>
+    <option value="#0000FF">BLEU</option>
+</select>
+
+<input type="color" [(ngModel)]="couleur" />
+<br />
+
+<spr-bold>Le contenu à mettre en gras</spr-bold>
+
+<p spr-bold-produit prefix="Voici le nom" nom="jkfds"></p>
+
+<spr-tooltip spr-tooltip-titre="KE C JOLI !!!">Un texte compliqué</spr-tooltip>
+<p spr-tooltip spr-tooltip-titre="KE C JOLI !!!">Un texte compliqué</p>

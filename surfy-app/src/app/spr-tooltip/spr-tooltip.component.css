@@ -1,0 +1,12 @@
+.spr-tooltip {
+    position: relative;
+}
+
+.spr-tooltip > .titre {
+    position: absolute;
+    top: -40px;
+
+    padding: 10px 20px;
+    background: #FF5588;
+    color: white;
+}

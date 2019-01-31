@@ -1,0 +1,45 @@
+<div>
+    <label>Nom</label>
+    <input type="text" [(ngModel)]="produit.nom" />
+</div>
+
+<div>
+    <label>Prix</label>
+    <input type="number" [(ngModel)]="produit.prix" />
+</div>
+
+<div>
+    <button (click)="ajouterProduit()">AJOUTER</button>
+</div>
+
+<p
+    [hidden]="!produit.nom || produit.prix == 0"
+    [class.danger]="produit.prix < 0"
+    >
+<!-- <p *ngIf="produit.nom && produit.prix != 0"> -->
+    Le produit "{{ produit.nom }}" est de {{ produit.prix }} euros.
+</p>
+
+<hr />
+
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Infos</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let p of produits">
+            <td>{{ p.nom }}</td>
+            <td>{{ p.prix }}</td>
+            <td>
+                <span *ngIf="p.prix < 0">Négatif</span>
+                <span *ngIf="p.prix > 0">Positif</span>
+                <span *ngIf="p.prix == 0">Neutre</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
