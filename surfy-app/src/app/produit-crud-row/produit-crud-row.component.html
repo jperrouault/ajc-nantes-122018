@@ -1,0 +1,52 @@
+<!-- Nouveau produit -->
+<td class="new" colspan="4" *ngIf="isNew && !isEditing">Double-cliquez ici pour ajouter un nouveau produit</td>
+
+<td *ngIf="isNew && isEditing">
+    <input type="text" [(ngModel)]="produit.nom" />
+</td>
+
+<td *ngIf="isNew && isEditing">
+    <input type="text" [(ngModel)]="produit.prix" />
+</td>
+
+<td *ngIf="isNew && isEditing" colspan="2">
+    <button *ngIf="isEditing" (click)="edit()" class="btn btn-success mr-2">Ajouter</button>
+    <button *ngIf="isEditing" (click)="cancel()" class="btn btn-danger">Annuler</button>
+</td>
+
+
+
+<!-- Produit existant -->
+<td *ngIf="!isNew && !isDeleting">
+    <span *ngIf="!isEditing"><a [routerLink]="['/produit', produit.nom]" routerLinkActive="active">{{ produit.nom }}</a></span>
+    <input *ngIf="isEditing" type="text" [(ngModel)]="produit.nom" />
+</td>
+
+<td *ngIf="!isNew && !isDeleting">
+    <span *ngIf="!isEditing">{{ produit.prix }}</span>
+    <input *ngIf="isEditing" type="text" [(ngModel)]="produit.prix" />
+</td>
+
+<td *ngIf="!isNew && !isDeleting">
+    <span *ngIf="produit.prix < 0">Négatif</span>
+    <span *ngIf="produit.prix > 0">Positif</span>
+    <span *ngIf="produit.prix == 0">Neutre</span>
+</td>
+
+<td *ngIf="!isNew && !isDeleting">
+    <button *ngIf="!isEditing" (click)="onDblClick()" class="btn btn-warning mr-2">Editer</button>
+    <button *ngIf="!isEditing" (click)="askDelete()" class="btn btn-danger">Supprimer</button>
+
+    <button *ngIf="isEditing" (click)="edit()" class="btn btn-success mr-2">Appliquer</button>
+    <button *ngIf="isEditing" (click)="cancel()" class="btn btn-danger">Annuler</button>
+</td>
+
+
+<td colspan="3" *ngIf="isDeleting">
+    Êtes-vous sûr de vouloir supprimer le produit <b>{{ produit.nom }}</b> ?
+</td>
+
+<td *ngIf="isDeleting">
+    <button (click)="delete()" class="btn btn-danger mr-2">OUI</button>
+    <button (click)="cancel()" class="btn btn-success">NON</button>
+</td>

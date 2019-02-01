@@ -6,8 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    // private filtre: string = "";
-    // filtrer() {
-    //     return this.produits.filter(p => p.nom.indexOf(this.filtre) !== -1);
-    // }
+    
 }

@@ -9,12 +9,15 @@ import { SprBoldProduitComponent } from './spr-bold-produit/spr-bold-produit.com
 import { SprTooltipComponent } from './spr-tooltip/spr-tooltip.component';
 import { HomeComponent } from './home/home.component';
 import { ProduitComponent } from './produit/produit.component';
+import { ProduitDetailComponent } from './produit-detail/produit-detail.component';
+import { ProduitCrudRowComponent } from './produit-crud-row/produit-crud-row.component';
 
 
 //Configuration des routes
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'produit', component: ProduitComponent },
+    { path: 'produit/:id', component: ProduitDetailComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
@@ -26,7 +29,9 @@ const routes: Routes = [
     SprBoldProduitComponent,
     SprTooltipComponent,
     HomeComponent,
-    ProduitComponent
+    ProduitComponent,
+    ProduitDetailComponent,
+    ProduitCrudRowComponent
   ],
   imports: [
     BrowserModule,
