@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Produit } from './produit';
+import { ProduitService } from '../produit.service';
 
 @Component({
   selector: 'app-produit',
@@ -8,12 +9,14 @@ import { Produit } from './produit';
 })
 export class ProduitComponent implements OnInit {
     private produit: Produit = new Produit("Le produit", 0);
-    private produits: Array<Produit> = new Array<Produit>();
+    private produits: Array<Produit>;
     private editing: boolean = false;
 
-    constructor() {
-        this.produits.push(new Produit("GoPRO HERO 6", 499));
-        this.produits.push(new Produit("DJI MAVIC PRO", 1499));
+    constructor(private produitService: ProduitService) {
+        // this.produits = produitService.produits;
+        //
+        // this.produits.push(new Produit("GoPRO HERO 6", 499));
+        // this.produits.push(new Produit("DJI MAVIC PRO", 1499));
     }
 
     ngOnInit() {
@@ -24,8 +27,8 @@ export class ProduitComponent implements OnInit {
     }
 
     ajouterProduit() {
-        this.produits.push(this.produit);
-        this.produit = new Produit("Le produit", 0);
+        this.produit.fournisseur = { id: 1 };
+        this.produitService.save(this.produit);
     }
 
     editerProduit(produit: Produit) {
@@ -34,12 +37,14 @@ export class ProduitComponent implements OnInit {
     }
 
     modifierProduit() {
+        this.produit.fournisseur = { id: 1 };
+        this.produitService.save(this.produit);
+        
         this.produit = new Produit("Le produit", 0);
         this.editing = false;
     }
 
     supprimerProduit(produit: Produit) {
-        let index = this.produits.indexOf(produit);
-        this.produits.splice(index, 1);
+        this.produitService.delete(produit);
     }
 }

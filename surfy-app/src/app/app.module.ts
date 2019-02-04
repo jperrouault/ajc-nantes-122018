@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SprBoldComponent } from './spr-bold/spr-bold.component';
@@ -11,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { ProduitComponent } from './produit/produit.component';
 import { ProduitDetailComponent } from './produit-detail/produit-detail.component';
 import { ProduitCrudRowComponent } from './produit-crud-row/produit-crud-row.component';
+import { PrixCategoryPipe } from './prix-category.pipe';
 
 
 //Configuration des routes
@@ -31,12 +33,14 @@ const routes: Routes = [
     HomeComponent,
     ProduitComponent,
     ProduitDetailComponent,
-    ProduitCrudRowComponent
+    ProduitCrudRowComponent,
+    PrixCategoryPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

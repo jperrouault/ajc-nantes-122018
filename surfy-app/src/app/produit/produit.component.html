@@ -32,13 +32,14 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let p of produits">
-                <td>{{ p.nom }}</td>
+            <tr *ngFor="let p of produitService.findAllAsync() | async">
+                <td><a [routerLink]="['/produit', p.id]">{{ p.nom }}</a></td>
                 <td>{{ p.prix }}</td>
-                <td>
-                    <span *ngIf="p.prix < 0">Négatif</span>
+                <td [style.color]="p.prix | prixCategory">
+                    {{ p.prix | prixCategory:"string" }}
+                    <!-- <span *ngIf="p.prix < 0">Négatif</span>
                     <span *ngIf="p.prix > 0">Positif</span>
-                    <span *ngIf="p.prix == 0">Neutre</span>
+                    <span *ngIf="p.prix == 0">Neutre</span> -->
                 </td>
                 <td>
                     <button (click)="editerProduit(p)" class="btn btn-warning mr-2">EDITER</button>
@@ -50,7 +51,7 @@
 
 
 
-    <table class="table table-striped mt-5">
+    <!-- <table class="table table-striped mt-5">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -64,5 +65,5 @@
             <tr produit-row></tr>
             <tr produit-row [produit]="p" *ngFor="let p of produits"></tr>
         </tbody>
-    </table>
+    </table> -->
 </div>

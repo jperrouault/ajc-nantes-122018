@@ -15,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import fr.formation.projection.Views;
@@ -38,6 +39,7 @@ public class Produit {
 	@NotEmpty(message="Le nom du modèle doit être saisi")
 	@NotNull
 	@JsonView(Views.Produit.class)
+	@JsonProperty("nom")
 	private String modele;
 
 	@Column(name = "PRO_TAILLE")
