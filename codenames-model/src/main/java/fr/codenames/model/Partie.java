@@ -10,7 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.codenames.projection.Views;
 
 @Entity
 @Table(name = "partie")
@@ -18,15 +23,22 @@ public class Partie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PAR_ID")
+	@JsonView(Views.Common.class)
 	private int id;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "PAR_GRILLE_ID")
+	@JsonView(Views.Partie.class)
 	private Grille grille;
 
 	@ManyToOne
 	@JoinColumn(name = "PAR_CAPITAINE_ID")
+	@JsonView(Views.Partie.class)
 	private Joueur capitaine;
+
+	@Column(name = "PAR_EST_TERMINEE", nullable = false)
+	@JsonView(Views.Partie.class)
+	private boolean terminee;
 
 	@OneToMany(mappedBy = "partie")
 	private List<Participation> participations;
@@ -56,6 +68,14 @@ public class Partie {
 
 	public void setCapitaine(Joueur capitaine) {
 		this.capitaine = capitaine;
+	}
+
+	public boolean isTerminee() {
+		return terminee;
+	}
+
+	public void setTerminee(boolean terminee) {
+		this.terminee = terminee;
 	}
 
 	public List<Participation> getParticipations() {

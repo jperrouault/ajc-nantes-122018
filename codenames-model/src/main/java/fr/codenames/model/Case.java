@@ -11,17 +11,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.codenames.projection.Views;
+
 @Entity
 @Table(name = "[case]")
 public class Case {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CASE_ID")
+	@JsonView(Views.Common.class)
 	private int id;
 
 	@Column(name = "CASE_COULEUR")
 	@Enumerated(EnumType.ORDINAL)
+	@JsonView({ Views.PlateauEspion.class, Views.CaseReponse.class })
 	private Couleur couleur;
+
+	@Column(name = "CASE_EST_REVELEE", nullable=false)
+	@JsonView({ Views.Plateau.class, Views.CaseReponse.class })
+	private boolean revelee;
 
 	@ManyToOne
 	@JoinColumn(name = "CASE_GRILLE_ID")
@@ -29,6 +39,7 @@ public class Case {
 
 	@ManyToOne
 	@JoinColumn(name = "CASE_CARTE_ID")
+	@JsonView({ Views.Plateau.class, Views.CaseReponse.class })
 	private Carte carte;
 
 	public int getId() {
@@ -61,5 +72,23 @@ public class Case {
 
 	public void setCarte(Carte carte) {
 		this.carte = carte;
+	}
+
+	public boolean isRevelee() {
+		return revelee;
+	}
+
+	public void setRevelee(boolean revelee) {
+		this.revelee = revelee;
+	}
+	
+
+	@JsonView(Views.PlateauJoueur.class)
+	public Couleur getConditionalCouleur() {
+		if (this.isRevelee()) {
+			return this.getCouleur();
+		}
+		
+		return null;
 	}
 }

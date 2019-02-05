@@ -9,15 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.codenames.projection.Views;
+
 @Entity
 @Table(name="message")
 public class Message {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MSG_ID")
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column(name="MSG_CONTENU", columnDefinition="TEXT", nullable=false)
+	@JsonView(Views.Message.class)
 	private String contenu;
 	
 	@ManyToOne
@@ -26,6 +32,7 @@ public class Message {
 	
 	@ManyToOne
 	@JoinColumn(name="MSG_JOUEUR_ID")
+	@JsonView(Views.Message.class)
 	private Joueur joueur;
 
 	public int getId() {

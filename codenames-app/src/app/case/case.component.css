@@ -1,0 +1,46 @@
+.case {
+    height: 100px;
+    line-height: 100px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid #ffc107;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.case.BLEUE {
+    border-color: #007bff;
+}
+
+.case.ROUGE {
+    border-color: #dc3545;
+}
+
+.case.NEUTRE {
+    border-color: #f8f9fa;
+}
+
+.case.NOIRE {
+    border-color: #000;
+}
+
+
+.case.revealed.BLEUE {
+    color: white;
+    background: #007bff;
+}
+
+.case.revealed.ROUGE {
+    color: white;
+    background: #dc3545;
+}
+
+.case.revealed.NEUTRE {
+    background: #f8f9fa;
+}
+
+.case.revealed.NOIRE {
+    color: white;
+    background: #000;
+}

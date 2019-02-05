@@ -1,0 +1,11 @@
+<div class="row mt-5 ml-5">
+    <div class="col-12 col-sm-8">
+        <div class="row mb-3" *ngFor="let row of plateauService.cases">
+            <case *ngFor="let c of row" [case]="c" class="col-6 col-sm"></case>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-4">
+        <chat></chat>
+    </div>
+</div>

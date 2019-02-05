@@ -1,0 +1,14 @@
+<div class="messages mr-5" scroll-glue>
+    <div class="message" *ngFor="let m of chatService.messages">
+        <span class="utilisateur">{{ m.joueur.username }}</span>
+        <span class="date">12/06/2019</span>
+        <span class="texte">{{ m.contenu }}</span>
+    </div>
+</div>
+
+<div class="mr-5">
+    <div class="row">
+        <input class="col-8 form-control" type="text" [(ngModel)]="message" (keyup.enter)="envoyer()" />
+        <button class="col-4 btn btn-success" (click)="envoyer()">ENVOYER</button>
+    </div>
+</div>

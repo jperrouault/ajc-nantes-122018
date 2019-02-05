@@ -1,0 +1,37 @@
+.messages {
+    height: 80vh;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px black;
+
+    overflow-y: scroll;
+}
+
+.messages .message {
+    position: relative;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: dashed 1px grey;
+}
+
+.messages .message:last-child {
+    position: relative;
+    border-bottom: none;
+}
+
+.messages .message > span {
+    display: block;
+}
+
+.messages .message > span.utilisateur {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.messages .message > span.date {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+}

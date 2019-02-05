@@ -52,6 +52,13 @@ public class PlateauRestController {
 	private final String NOTIFIER_NAME = "plateau";
 	
 	
+	@GetMapping
+	@JsonView(Views.Grille.class)
+	public Grille findFreeOne() {
+		return this.daoPartie.findFreeOne().getGrille();
+	}
+	
+	
 	@GetMapping("/create")
 	@JsonView(Views.Grille.class)
 	public Grille create() {
@@ -84,7 +91,7 @@ public class PlateauRestController {
 	
 	
 	@GetMapping("/{id}")
-	@JsonView(Views.Plateau.class)
+	@JsonView(Views.PlateauJoueur.class)
 	@Transactional
 	public Grille findById(@PathVariable int id) {
 		Grille myGrille = this.daoGrille.findById(id).get();
@@ -106,13 +113,57 @@ public class PlateauRestController {
 	
 	@PostMapping("/{id}")
 	@JsonView(Views.CaseReponse.class)
+	@Transactional
 	public Case selectCarte(@RequestBody Case selectedCase) {
 		Case myCase = this.daoCase.findById(selectedCase.getId()).get();
 		
-		myCase.setRevelee(true);
-		this.notifier.publish(this.NOTIFIER_NAME, myCase, Views.CaseReponse.class);
+		if (!myCase.getGrille().getPartie().isTerminee()) {
+			myCase.setRevelee(true);
+			this.daoCase.save(myCase);
+			
+			this.notifier.publish(this.NOTIFIER_NAME, myCase, Views.CaseReponse.class);
+			
+			//ON DETERMINE SI LA PARTIE EST FINIE
+			if (
+					(myCase.getGrille().getCases()
+							.stream()
+							.filter(c -> c.getCouleur() == Couleur.NOIRE && c.isRevelee())
+							.count()
+							== 1
+					)
+					||
+					(myCase.getGrille().getCases()
+							.stream()
+							.filter(c -> c.getCouleur() == Couleur.ROUGE && c.isRevelee())
+							.count()
+					== 
+					myCase.getGrille().getCases()
+						.stream()
+						.filter(c -> c.getCouleur() == Couleur.ROUGE)
+						.count()
+					)
+					||
+					(myCase.getGrille().getCases()
+							.stream()
+							.filter(c -> c.getCouleur() == Couleur.BLEUE && c.isRevelee())
+							.count()
+					== 
+					myCase.getGrille().getCases()
+						.stream()
+						.filter(c -> c.getCouleur() == Couleur.BLEUE)
+						.count()
+					)
+				) {
+				
+				myCase.getGrille().getPartie().setTerminee(true);
+				this.daoPartie.save(myCase.getGrille().getPartie());
+				this.notifier.publish(this.NOTIFIER_NAME, myCase.getGrille().getPartie(), Views.Partie.class);
+			}
+			
+			return myCase;
+		}
 		
-		return myCase;
+		return null;
 	}
 	
 	

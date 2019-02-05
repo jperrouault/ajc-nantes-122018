@@ -14,6 +14,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.codenames.projection.Views;
+
 @Entity
 @Table(name="utilisateur")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -22,6 +26,7 @@ public abstract class Utilisateur {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="UTI_ID")
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column(name="UTI_NOM", length=100, nullable=false)
@@ -40,6 +45,7 @@ public abstract class Utilisateur {
 	@NotNull
 	@NotEmpty
 	@Size(max=50)
+	@JsonView(Views.Message.class)
 	private String username;
 	
 	@Column(name="UTI_PASSWORD", length=300, nullable=false)

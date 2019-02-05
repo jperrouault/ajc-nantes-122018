@@ -39,7 +39,7 @@ public class ChatRestController {
 	@GetMapping("/{id}")
 	@JsonView(Views.Message.class)
 	public List<Message> findById(@PathVariable int id) {
-		return this.daoMessage.findAllByPartieGrilleId(id);
+		return this.daoMessage.findAllByPartieGrilleIdOrderByIdDesc(id);
 	}
 	
 	
